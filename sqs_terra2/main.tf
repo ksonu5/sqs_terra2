@@ -2,6 +2,32 @@ provider "aws" {
   region = "ap-south-1"
 }
 
+
+# Create SQS Queue
+resource "aws_sqs_queue" "orders_queue" {
+  name = "orders-queue"
+}
+
+# Create DynamoDB Table
+resource "aws_dynamodb_table" "orders_table" {
+  name           = "orders-table"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "order_id"
+
+  attribute {
+    name = "order_id"
+    type = "S"
+  }
+}
+
+# Outputs
+output "sqs_queue_url" {
+  value = aws_sqs_queue.orders_queue.id
+}
+
+output "dynamodb_table_name" {
+  value = aws_dynamodb_table.orders_table.name
+}
 # Create an ECR repository
 resource "aws_ecr_repository" "flask_api_repo" {
   name = "flask-api-repo"
