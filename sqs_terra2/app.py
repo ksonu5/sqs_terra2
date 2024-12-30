@@ -9,7 +9,7 @@ app = Flask(__name__)
 sqs = boto3.client('sqs', region_name='ap-south-1')
 queue_url = os.getenv('SQS_QUEUE_URLhttps://sqs.ap-south-1.amazonaws.com/886436931873/Menu_sqs')
 dynamodb = boto3.resource('dynamodb', region_name='ap-south-1')
-table_name = os.getenv('Menu')
+table_name = os.getenv('orders-table')
 
 # DynamoDB Table
 order_table = dynamodb.Table('table_name')
